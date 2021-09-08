@@ -23,7 +23,7 @@ public class UnityRestController {
     }
 
     @GetMapping("/getGreetings")
-    public List<Greeting> getGreetings() {
+    public Iterable<Greeting> getGreetings() {
         return greetingRepository.findAll();
     }
 }
