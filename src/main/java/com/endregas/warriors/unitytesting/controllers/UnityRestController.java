@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 public class UnityRestController {
 
@@ -23,7 +24,7 @@ public class UnityRestController {
     }
 
     @GetMapping("/getGreetings")
-    public Iterable<Greeting> getGreetings() {
+    public List<Greeting> getGreetings() {
         return greetingRepository.findAll();
     }
 }
