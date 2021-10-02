@@ -1,0 +1,22 @@
+version: '1'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    container_name: unity-java-docker-compose
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://unity-database-docker-compose:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres:latest'
+    container_name: unity-database-docker-compose
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
