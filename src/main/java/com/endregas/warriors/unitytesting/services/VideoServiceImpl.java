@@ -1,6 +1,7 @@
 package com.endregas.warriors.unitytesting.services;
 
 import com.endregas.warriors.unitytesting.enums.VideoSavingEnum;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,10 +9,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+@Slf4j
 @Service
 public class VideoServiceImpl implements VideoService {
 
     public static final String VIDEO_DIRECTORY = "../videos/";
+    public static final int INITIAL_POSTFIX = 1;
 
     @Override
     public VideoSavingEnum saveVideo(MultipartFile file) {
@@ -20,17 +23,17 @@ public class VideoServiceImpl implements VideoService {
             saveFile(file);
             return VideoSavingEnum.SAVED;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return VideoSavingEnum.ERROR;
         }
     }
 
     private void saveFile(MultipartFile file) throws IOException {
         File convertFile = new File(VIDEO_DIRECTORY + file.getOriginalFilename());
-        if(!convertFile.createNewFile()){
-            overrideVideo();
+        if (!convertFile.createNewFile()) {
+            convertFile = addSuffix(convertFile, INITIAL_POSTFIX);
         }
-        try(FileOutputStream fout = new FileOutputStream(convertFile)){
+        try (FileOutputStream fout = new FileOutputStream(convertFile)) {
             fout.write(file.getBytes());
         }
     }
@@ -42,7 +45,11 @@ public class VideoServiceImpl implements VideoService {
         }
     }
 
-    private void overrideVideo(){
-        //TODO: implement video overriding or video renaming
+    private File addSuffix(File convertFile, int suffix) throws IOException {
+        File renamedFile = new File(convertFile.toURI().getPath().replaceFirst(".mp4", "(" + suffix + ").mp4"));
+        if (!renamedFile.createNewFile()) {
+            return addSuffix(convertFile, suffix + 1);
+        }
+        return renamedFile;
     }
 }
