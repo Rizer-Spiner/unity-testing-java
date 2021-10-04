@@ -11,7 +11,7 @@ import java.io.*;
 @Service
 public class VideoServiceImpl implements VideoService {
 
-    public static final String VIDEO_DIRECTORY = "../videos/";
+    public static final String VIDEO_DIRECTORY = "src/main/resources/videos/";
     public static final int INITIAL_POSTFIX = 1;
 
     @Override
