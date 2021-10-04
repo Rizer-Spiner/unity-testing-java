@@ -37,7 +37,6 @@ build/
 src/main/resources/application-dev.properties
 
 ### Maven template
-target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -49,3 +48,5 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 
+### Video recordings ###
+src/main/resources/videos
