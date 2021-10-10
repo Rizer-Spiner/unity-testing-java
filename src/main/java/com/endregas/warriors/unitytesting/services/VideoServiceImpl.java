@@ -5,7 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Slf4j
 @Service
@@ -41,7 +44,7 @@ public class VideoServiceImpl implements VideoService {
         }
         long endTime = System.nanoTime();
         long duration = (endTime - startTime) / 1000000;
-        log.info(String.format("File (%d bytes) was uploaded in %d milliseconds", file.getSize(), duration));
+        log.info(String.format("File %s (%d bytes) was uploaded in %d milliseconds", file.getName(), file.getSize(), duration));
     }
 
     private void createDirectoryIfDoesntExist() {
