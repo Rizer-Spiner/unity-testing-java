@@ -12,7 +12,10 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://unity-database-docker-compose:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - CUSTOM_HTTP_MAX_FILE_SIZE=9000MB
+      - CUSTOM_HTTP_MAX_REQUEST_SIZE=9050MB
+    volumes:
+      - .\src\main\resources\videos:/app/src/main/resources/videos
 
   db:
     image: 'postgres:latest'
