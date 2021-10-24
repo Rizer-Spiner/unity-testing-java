@@ -50,7 +50,7 @@ public class VideoServiceImpl implements VideoService {
             videoDirectory.mkdirs();
             throw new NoVideosException();
         }
-        if(Optional.ofNullable(videoDirectory.listFiles()).isEmpty()){
+        if(Objects.requireNonNull(videoDirectory.listFiles()).length == 0){
             throw new NoVideosException();
         }
     }
