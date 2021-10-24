@@ -23,3 +23,5 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
+    volumes:
+      - .\src\main\resources\database:/var/lib/postgresql/data
