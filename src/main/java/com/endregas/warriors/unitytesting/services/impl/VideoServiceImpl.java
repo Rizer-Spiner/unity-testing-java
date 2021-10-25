@@ -25,15 +25,9 @@ public class VideoServiceImpl implements VideoService {
     public static final int INITIAL_POSTFIX = 1;
 
     @Override
-    public VideoSavingEnum saveVideo(MultipartFile file) {
-        try {
-            createDirectoryIfDoesntExist();
-            saveFile(file);
-            return VideoSavingEnum.SAVED;
-        } catch (IOException e) {
-            log.error(e.getMessage());
-            return VideoSavingEnum.ERROR;
-        }
+    public void saveVideo(MultipartFile file) throws IOException {
+        createDirectoryIfDoesntExist();
+        saveFile(file);
     }
 
     @Override
@@ -64,7 +58,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     private void saveFile(MultipartFile file) throws IOException {
-        File convertFile = new File(VIDEO_DIRECTORY + file.getOriginalFilename());
+        File convertFile = new File(VIDEO_DIRECTORY + file.getName());
         if (!convertFile.createNewFile()) {
             convertFile = addSuffix(convertFile, INITIAL_POSTFIX);
         }

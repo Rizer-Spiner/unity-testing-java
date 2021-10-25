@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class VideoServiceImplTest {
 
     private static final String VIDEO_DIRECTORY = "src/main/resources/videos/";
-    private static final String TEST_VIDEO_DIRECTORY = "src/test/resources/videos/black screen.mp4";
     private static final int INITIAL_POSTFIX = 1;
     private static final String TEST_VIDEO_NAME = "black screen.mp4";
     private static final String THIRD_TEST_VIDEO_NAME = "black screen(2).mp4";
@@ -24,7 +23,7 @@ class VideoServiceImplTest {
     File videoDirectory;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         videoDirectory = new File(VIDEO_DIRECTORY);
         deleteVideoDirectory();
         videoDirectory.mkdirs();
@@ -32,8 +31,8 @@ class VideoServiceImplTest {
 
     private void deleteVideoDirectory() {
         File[] allFiles = videoDirectory.listFiles();
-        if(allFiles != null){
-            for(File file : allFiles){
+        if (allFiles != null) {
+            for (File file : allFiles) {
                 file.delete();
             }
         }
@@ -41,31 +40,31 @@ class VideoServiceImplTest {
     }
 
     @Test
-    void findLatest_directoryDoesNotExist() {
+    void findMostRecentVideo_directoryDoesNotExist() {
         videoDirectory.delete();
         assertFalse(videoDirectory.exists());
         assertThrows(NoVideosException.class, () -> videoService.findMostRecentVideo());
     }
 
     @Test
-    void findLatest_noVideosInDirectory() {
+    void findMostRecentVideo_noVideosInDirectory() {
         assertTrue(videoDirectory.exists());
         assertThrows(NoVideosException.class, () -> videoService.findMostRecentVideo());
     }
 
     @Test
-    void findLatest_findFromOneVideo() throws IOException {
-        MultipartFile testVideo = new MockMultipartFile("black screen.mp4", new FileInputStream(TEST_VIDEO_DIRECTORY));
-        for(int i = 0; i < 1; i++){
+    void findMostRecentVideo_findFromOneVideo() throws IOException {
+        MultipartFile testVideo = new MockMultipartFile(TEST_VIDEO_NAME, new byte[0]);
+        for (int i = 0; i < 1; i++) {
             saveFile(testVideo);
         }
         assertEquals(TEST_VIDEO_NAME, videoService.findMostRecentVideo());
     }
 
     @Test
-    void findLatest_findFromSeveralVideos() throws IOException {
-        MultipartFile testVideo = new MockMultipartFile("black screen.mp4", new FileInputStream(TEST_VIDEO_DIRECTORY));
-        for(int i = 0; i < 3; i++){
+    void findMostRecentVideo_findFromSeveralVideos() throws IOException {
+        MultipartFile testVideo = new MockMultipartFile(TEST_VIDEO_NAME, new byte[0]);
+        for (int i = 0; i < 3; i++) {
             saveFile(testVideo);
         }
         assertEquals(THIRD_TEST_VIDEO_NAME, videoService.findMostRecentVideo());
@@ -91,6 +90,12 @@ class VideoServiceImplTest {
             return addSuffix(convertFile, suffix + 1);
         }
         return renamedFile;
+    }
+
+    @Test
+    void saveVideo_successfullySaves() {
+        MultipartFile testFile = new MockMultipartFile(TEST_VIDEO_NAME, new byte[0]);
+        assertDoesNotThrow(() -> videoService.saveVideo(testFile));
     }
 
 }
