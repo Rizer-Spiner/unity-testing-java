@@ -50,3 +50,6 @@ buildNumber.properties
 
 ### Video recordings ###
 src/main/resources/videos
+
+### Database files ###
+src/main/resources/database
