@@ -24,8 +24,8 @@ public class BugServiceImpl implements BugService {
     }
 
     @Override
-    public List<BugReportDTO> getBugsForARun(String runId) {
-        List<BugReport> reports = bugRepository.findAllByRunId(runId);
+    public List<BugReportDTO> getBugsForARun(String game, String build, String runId) {
+        List<BugReport> reports = bugRepository.findAllByGameAndBuildAndRunId(game, build, runId);
         return reports.stream()
                 .map(BugReport::convertToDTO)
                 .collect(Collectors.toList());

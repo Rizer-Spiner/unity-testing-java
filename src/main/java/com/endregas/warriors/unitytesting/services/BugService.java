@@ -8,6 +8,6 @@ public interface BugService {
 
     BugReportDTO reportABug(BugReportDTO bugReport);
 
-    List<BugReportDTO> getBugsForARun(String runId);
+    List<BugReportDTO> getBugsForARun(String game, String build, String runId);
 
 }

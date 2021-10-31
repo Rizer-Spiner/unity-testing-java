@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public interface VideoService {
 
-    void saveVideo(MultipartFile file) throws IOException;
+    void saveVideo(MultipartFile file, String game, String build) throws IOException;
 
     String findMostRecentVideo() throws NoVideosException, VideoNotFoundException;
 
