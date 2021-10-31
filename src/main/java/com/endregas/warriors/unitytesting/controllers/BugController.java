@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @RestController
@@ -22,8 +24,11 @@ public class BugController {
     }
 
     @GetMapping(value = "/bug")
-    public ResponseEntity<List<BugReportDTO>> getRunBugs(@RequestParam(name = "runId") String runId){
-        return ResponseEntity.ok(bugService.getBugsForARun(runId));
+    public ResponseEntity<List<BugReportDTO>> getRunBugs(
+            @RequestParam(name = "game") @NotNull @Size(max = 50) String game,
+            @RequestParam(name = "build") @NotNull @Size(max = 20) String build,
+            @RequestParam(name = "runId") @NotNull @Size(max = 50) String runId) {
+        return ResponseEntity.ok(bugService.getBugsForARun(game, build, runId));
     }
 
 }

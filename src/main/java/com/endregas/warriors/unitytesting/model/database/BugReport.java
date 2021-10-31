@@ -20,14 +20,15 @@ public class BugReport {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    private String game;
+    private String build;
     private String runId;
-    private String buildId;
     private LocalDate timestamp;
     private long time;
     private String notes;
 
-    public BugReportDTO convertToDTO(){
-        return new BugReportDTO(buildId, runId, time, notes);
+    public BugReportDTO convertToDTO() {
+        return new BugReportDTO(game, build, runId, time, notes);
     }
 
 }

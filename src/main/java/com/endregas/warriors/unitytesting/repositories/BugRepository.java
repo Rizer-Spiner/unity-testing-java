@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BugRepository extends CrudRepository<BugReport, String> {
 
-    List<BugReport> findAllByRunId(String runId);
+    List<BugReport> findAllByGameAndBuildAndRunId(String game, String build, String runId);
 
 }

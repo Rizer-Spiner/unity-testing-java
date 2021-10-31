@@ -1,7 +1,8 @@
 package com.endregas.warriors.unitytesting.model.dto;
 
 import com.endregas.warriors.unitytesting.model.database.BugReport;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,8 +13,10 @@ import java.time.LocalDate;
 @Getter
 public class BugReportDTO {
 
+    @NotBlank(message = "Game name cannot be blank or null")
+    private String game;
     @NotBlank(message = "Build id cannot be blank or null")
-    private String buildId;
+    private String build;
     @NotBlank(message = "Run id cannot be blank or null")
     private String runId;
     @NotNull(message = "Time cannot be null")
@@ -21,10 +24,11 @@ public class BugReportDTO {
     @Size(max = 1000, message = "Notes cannot contain more than 1000 characters")
     private String notes;
 
-    public BugReport createBugReport(){
+    public BugReport createBugReport() {
         return BugReport.builder()
                 .runId(runId)
-                .buildId(buildId)
+                .game(game)
+                .build(build)
                 .timestamp(LocalDate.now())
                 .time(time)
                 .notes(notes)
